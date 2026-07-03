@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enviar Dinero</title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+</head>
+
+<body class="bg-light">
+
+<div class="container d-flex justify-content-center align-items-center vh-100">
+
+    <div class="card p-4 shadow" style="width: 380px;">
+
+        <h2 class="text-center mb-4">Enviar Dinero</h2>
+
+        <form action="buscarContacto">
+
+            <div class="form-group">
+                <label for="contacto">Buscar en la agenda de transferencias</label>
+                <input
+                    type="text"
+                    class="form-control"
+                    id="contacto"
+                    name="contacto"
+                    placeholder="Ingresa el nombre del contacto">
+            </div>
+
+            <button type="submit" class="btn btn-primary btn-block">
+                Buscar
+            </button>
+
+        </form>
+
+        <button class="btn btn-success btn-block mt-3"
+        type="button"
+        data-toggle="collapse"
+        data-target="#formContacto">
+    Agregar nuevo contacto
+</button>
+
+<div class="collapse mt-3" id="formContacto">
+    <div class="card card-body">
+
+        <form action="agregarContacto">
+
+            <div class="form-group">
+                <label>Nombre</label>
+                <input type="text" name="nombre" class="form-control">
+            </div>
+
+            <div class="form-group">
+                <label>Número de cuenta</label>
+                <input type="text" name="cuenta" class="form-control">
+            </div>
+
+            <button type="submit" class="btn btn-primary btn-block">
+                Guardar contacto
+            </button>
+
+        </form>
+
+    </div>
+</div>
+
+        <a href="menu.html" class="btn btn-secondary btn-block mt-3">
+            Volver al Menú Principal
+        </a>
+
+    </div>
+
+</div>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+</body>
+</html>
