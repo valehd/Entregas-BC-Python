@@ -1,0 +1,206 @@
+<!--sendmoney.html-->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Wallet - Enviar Dinero</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <style>
+        body {
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 400px;
+            margin: 0 auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="container p-4 border rounded shadow-sm">
+  <h2 class="text-center ">Enviar Dinero</h2>
+        <div class="form-group">
+            <label for="searchContact">Buscar en la agenda de transferencias:</label>
+            <input type="text" class="form-control" id="searchContact" placeholder="Search contact">
+        </div>
+        
+        <button class="btn btn-primary" data-toggle="modal" data-target="#modalContacto">Agregar nuevo contacto</button>
+        
+
+        <div class="container p-4 ">
+        <h3 class="text-center">Contactos</h3>
+        <ul id="contactList" class="list-group mb-4">
+            <li class="list-group-item">
+                <input type="radio" name="contacto">
+                <div class="contact-info">
+                    <span class="contact-name">John Doe</span>
+                    <span class="contact-details">CBU: 123456789, Alias: john.doe, Banco: ABC Bank</span>
+                </div>
+            </li>
+            <li class="list-group-item  d-flex align-items-center">
+                <input type="radio" name="contacto">
+                <div class="contact-info">
+                    <span class="contact-name">Jane Smith</span>
+                    <span class="contact-details">CBU: 987654321, Alias: jane.smith, Banco: XYZ Bank</span>
+                </div>
+            </li>
+        </ul>
+        <button id="btnEnviar"
+        class="btn btn-primary"
+        style="display:none"
+        onclick="enviarDinero()">
+    Enviar dinero
+</button>
+
+        <a href="menu.html" class="btn btn-secondary" >Volver al Menú Principal</a>
+        </div>
+
+        <div class="modal fade" id="modalContacto">
+            <div class="modal-dialog">
+                <div class="modal-content">
+
+                    <div class="modal-header">
+                        <h5 class="modal-title">Nuevo Contacto</h5>
+                        <button class="close" data-dismiss="modal">
+                            <span>&times;</span>
+                        </button>
+                    </div>
+
+                    <div class="modal-body">
+
+                        <input type="text" id="nombre" class="form-control" placeholder="Ingrese el nombre">
+                        <input type="text" id="cbu" class="form-control" placeholder="Ingrese el CBU">
+                        <input type="text" id="alias" class="form-control" placeholder="Ingrese el alias">
+                        <input type="text" id="banco" class="form-control" placeholder="Ingrese el banco">
+
+                    </div>
+
+<div class="modal-footer">
+    <button class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+    <button class="btn btn-primary" onclick="agregarContacto()">Guardar</button>
+</div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+<p id="mensaje"></p>
+
+
+    </div>
+            <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
+    <script>
+
+        $(document).ready(function () {
+
+    // Buscar contactos
+    $("#searchContact").keyup(function () {
+
+        let texto = $(this).val().toLowerCase();
+
+        $("#contactList li").each(function () {
+
+            let contacto = $(this).text().toLowerCase();
+
+            if (contacto.indexOf(texto) > -1) {
+                $(this).show();
+            } else {
+                $(this).hide();
+            }
+
+        });
+
+    });
+
+    // Mostrar botón Enviar Dinero al seleccionar un contacto
+    $(document).on("change", "input[name='contacto']", function () {
+
+        $("#btnEnviar").show();
+
+        $("#contactList li").removeClass("active");
+        $(this).closest("li").addClass("active");
+
+    });
+
+});
+
+// Agregar contacto
+function agregarContacto() {
+
+    let nombre = $("#nombre").val();
+    let cbu = $("#cbu").val();
+    let alias = $("#alias").val();
+    let banco = $("#banco").val();
+
+    if (nombre == "" || cbu == "" || alias == "" || banco == "") {
+        alert("Debe completar todos los campos");
+        return;
+    }
+
+    if (cbu.length != 9) {
+        alert("El CBU debe tener 9 dígitos");
+        return;
+    }
+
+    $("#contactList").append(`
+        <li class="list-group-item">
+            <input type="radio" name="contacto">
+            <div class="contact-info">
+                <span class="contact-name">${nombre}</span>
+                <span class="contact-details">
+                    CBU: ${cbu}, Alias: ${alias}, Banco: ${banco}
+                </span>
+            </div>
+        </li>
+    `);
+
+    alert("Contacto agregado");
+
+    $("#nombre").val("");
+    $("#cbu").val("");
+    $("#alias").val("");
+    $("#banco").val("");
+
+    $("#modalContacto").modal("hide");
+}
+
+// Enviar dinero
+function enviarDinero() {
+
+    let contactoSeleccionado = $('input[name="contacto"]:checked');
+
+    if (contactoSeleccionado.length == 0) {
+        alert("Debe seleccionar un contacto");
+        return;
+    }
+
+    let monto = Number(prompt("Ingrese el monto a transferir"));
+
+    let balance = Number(localStorage.getItem("balance"));
+
+    if (monto > balance) {
+        alert("No tiene saldo suficiente");
+        return;
+    }
+
+    if (confirm("¿Está seguro de realizar la transferencia?")) {
+
+        balance -= monto;
+
+        localStorage.setItem("balance", balance);
+
+        $("#mensaje")
+            .removeClass()
+            .addClass("alert alert-success mt-3")
+            .text("Transferencia realizada con éxito.");
+
+    }
+
+}
+
+    </script>
+</body>
+</html>

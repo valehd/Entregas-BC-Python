@@ -1,0 +1,76 @@
+
+<!---menu.html--->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Wallet - Menú Principal</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<style>
+        body {
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 400px;
+            margin: 0 auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="container text-center">
+        <h2>Menú Principal</h2>
+
+        <div class="form-group text-center pb-3">
+            <label for="balance">Dinero en cuenta:</label>
+            <h3>$ <span id="balance"></span></h3>
+        </div>
+</div>
+
+<div class="form-group text-center pb-3">
+        <button class="btn btn-primary" id="btnDepositar">Depositar</button>
+        <button class="btn btn-primary" id="btnEnviar">Enviar Dinero</button>
+        <button class="btn btn-primary" id="btnMovimientos">Últimos Movimientos</button>
+
+        <p id="leyenda"></p>
+    </div>
+</div>
+    <script>
+
+$(document).ready(function() {
+let balanceActual=Number(localStorage.getItem("balance"));
+$("#balance").text(balanceActual.toLocaleString("ES-cl"));
+})
+
+           
+$("#btnDepositar").click(function(){
+$("#leyenda").text("Redirigiendo a Depositar...")
+    window.location.href = "./deposit.html";
+     setTimeout(function () {
+        window.location.href = "./deposit.html";
+    }, 1500);
+})
+       
+$("#btnEnviar").click(function(){
+    $("#leyenda").text("Redirigiendo a Enviar Dinero...")
+                window.location.href = "./sendmoney.html";
+                 setTimeout(function () {
+        window.location.href = "./deposit.html";
+    }, 1500);
+
+
+})
+
+$("#btnMovimientos").click(function(){
+    $("#leyenda").text("Redirigiendo a Últimos Movimientos...")
+                window.location.href = "./transactions.html";
+                 setTimeout(function () {
+        window.location.href = "./deposit.html";
+    }, 1500);
+
+});
+
+
+    </script>
+</body>
+</html>

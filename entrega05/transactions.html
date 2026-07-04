@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Wallet - Últimos Movimientos</title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
+    <style>
+        body{
+            padding:20px;
+        }
+
+        .container{
+            max-width:400px;
+            margin:0 auto;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <h2>Últimos Movimientos</h2>
+
+    <div class="form-group">
+        <label>Filtrar por tipo:</label>
+
+        <select id="filtro" class="form-control">
+            <option value="todos">Todos</option>
+            <option value="compra">Compra</option>
+            <option value="deposito">Depósito</option>
+            <option value="transferencia">Transferencia recibida</option>
+        </select>
+    </div>
+
+    <ul id="listaMovimientos" class="list-group mb-3"></ul>
+
+    <a href="menu.html" class="btn btn-secondary">
+        Volver al Menú Principal
+    </a>
+
+</div>
+  <script>
+
+let listaTransacciones = [
+
+    {tipo:"compra", descripcion:"Compra en línea", monto:50000},
+    {tipo:"deposito", descripcion:"Depósito", monto:100000},
+    {tipo:"transferencia", descripcion:"Transferencia recibida", monto:75000},
+    {tipo:"compra", descripcion:"Compra supermercado", monto:35000},
+    {tipo:"deposito", descripcion:"Depósito misma cuenta", monto:250000},
+    {tipo:"transferencia", descripcion:"Transferencia recibida", monto:120000}
+
+];
+
+function getTipoTransaccion(tipo){
+
+    if(tipo=="compra"){
+        return "Compra";
+    }
+
+    if(tipo=="deposito"){
+        return "Depósito";
+    }
+
+    if(tipo=="transferencia"){
+        return "Transferencia recibida";
+    }
+
+}
+
+function mostrarUltimosMovimientos(filtro){
+
+    $("#listaMovimientos").empty();
+
+    $.each(listaTransacciones,function(i,transaccion){
+
+        if(filtro=="todos" || transaccion.tipo==filtro){
+
+            $("#listaMovimientos").append(
+                `<li class="list-group-item">
+                    ${getTipoTransaccion(transaccion.tipo)}
+                    - $${transaccion.monto.toLocaleString("es-CL")}
+                </li>`
+            );
+
+        }
+
+    });
+
+}
+
+$(document).ready(function(){
+
+    mostrarUltimosMovimientos("todos");
+
+    $("#filtro").change(function(){
+
+        let filtro=$(this).val();
+
+        mostrarUltimosMovimientos(filtro);
+
+    });
+
+});
+
+</script>
+</body>
+</html>
+
+
