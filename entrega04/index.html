@@ -4,6 +4,7 @@ index.html
     <head>
         <title>Wallet - Login</title>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+           <script src="https://jquery.com"></script>
         <style>
             body {
                 padding: 20px;
@@ -29,26 +30,29 @@ index.html
                 <input type="password" class="form-control" id="password" placeholder="Enter password">
             </div>
 
-            <button class="btn btn-primary" onclick="iniciar();">Login</button>
+            <button class="btn btn-primary" id="login">Login</button>
         </div>
 
         <script>
             // Creo la variable balance en LocalStorage. Todo el sitio tendrá acceso a esta 
             localStorage.setItem("balance", 0);
 
-            function iniciar() {
-                let email = document.getElementById("email").value;
-                let password = document.getElementById("password").value;
-
-                if (email == "admin@admin.cl" && password == "123") {
-                    alert("Los datos son correctos");
+            $(document).ready(function(){
+                $("#login").click(function(){
+                    let email= $("#email").val();
+                    let password=$("#password").val();
+                    if(email== "admin@admin.cl" && password=="123"){
+                           alert("Los datos son correctos");
 
                     window.location.href = "./menu.html"
+                    }
+                });
+            });
 
-                } else {
-                    alert("Los datos son incorrectos");
-                }
-            }
+        
+
+
+        
         </script>
     </body>
 </html>

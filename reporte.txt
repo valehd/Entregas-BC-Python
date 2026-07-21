@@ -1,0 +1,6 @@
+REPORTE DE EQUIPOS
+
+Código equipo: 01
+Nombre equipo: Equipo prueba
+Estado: Operativo
+
