@@ -29,4 +29,3 @@ while True:
         print('\nOpción inválida')
 
 
-print('Prueba recursiva:', cuenta_regresiva(3))

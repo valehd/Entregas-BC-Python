@@ -1,3 +1,6 @@
+from utilidades import contar_equipos
+
+
 # Tupla con los estados válidos (inmutable)
 ESTADOS = (
     'Operativo',
